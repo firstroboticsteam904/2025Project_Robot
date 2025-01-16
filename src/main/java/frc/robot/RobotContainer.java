@@ -14,6 +14,7 @@ import frc.robot.constants.OperatorConstants;
 import frc.robot.subsystem.SwerveSubsystem;
 import swervelib.SwerveInputStream;
 
+//TO-DO turn needs to be inverted
 public class RobotContainer {
   private final SwerveSubsystem driveBase = new SwerveSubsystem();
   private final CommandXboxController driverController = new CommandXboxController(0);
@@ -31,7 +32,7 @@ public class RobotContainer {
                                             () -> driverController.getLeftX() * - 1)
                                             .withControllerRotationAxis(driverController::getRightX)
                                             .deadband(OperatorConstants.Deadzone)
-                                            .scaleTranslation(0.8)
+                                            .scaleTranslation(2)
                                             .allianceRelativeControl(true);
 
    SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(
