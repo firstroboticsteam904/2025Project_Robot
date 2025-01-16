@@ -4,9 +4,12 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -19,12 +22,19 @@ public class RobotContainer {
   private final SwerveSubsystem driveBase = new SwerveSubsystem();
   private final CommandXboxController driverController = new CommandXboxController(0);
 
+  private final SendableChooser<Command> autoChooser;
+
   public RobotContainer() {
     DriverStation.silenceJoystickConnectionWarning(true);
     configureBindings();
     driveBase.setDefaultCommand(driveFieldOrientatedAngularVelocity);
 
     NamedCommands.registerCommand("example", Commands.print("Hello World"));
+
+    //to add auto, create auto in pathplanner
+    autoChooser = AutoBuilder.buildAutoChooser();
+    SmartDashboard.putData("Auto Chooser", autoChooser);
+
   }
 
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(driveBase.getSwerveDrive(), 
@@ -36,8 +46,8 @@ public class RobotContainer {
                                             .allianceRelativeControl(true);
 
    SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(
-                                        driverController::getRightX, 
-                                         driverController::getRightY)
+                                          driverController::getRightX, 
+                                          driverController::getRightY)
                                          .headingWhile(true);
 
     Command driveFieldOrientatedDirectAngle = driveBase.driveFieldOriented(driveDirectAngle);
@@ -48,6 +58,6 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return driveBase.getAutonomousCommand("Demo Auto");
+    return autoChooser.getSelected();
   }
 }
