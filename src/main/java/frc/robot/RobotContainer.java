@@ -21,6 +21,7 @@ import swervelib.SwerveInputStream;
 public class RobotContainer {
   private final SwerveSubsystem driveBase = new SwerveSubsystem();
   private final CommandXboxController driverController = new CommandXboxController(0);
+  private final
 
   private final SendableChooser<Command> autoChooser;
 
@@ -34,7 +35,7 @@ public class RobotContainer {
     //to add auto, create auto in pathplanner
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
-
+    
   }
 
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(driveBase.getSwerveDrive(), 
@@ -54,7 +55,7 @@ public class RobotContainer {
     Command driveFieldOrientatedAngularVelocity = driveBase.driveFieldOriented(driveAngularVelocity);
 
   private void configureBindings() {
-
+    driverController.x().onTrue(driveBase.resetPigeon());
   }
 
   public Command getAutonomousCommand() {

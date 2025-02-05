@@ -42,6 +42,8 @@ public class SwerveSubsystem extends SubsystemBase {
   SwerveDrive  swerveDrive;
 
   private final AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape);
+  private final PigeonIMU pigeon = new PigeonIMU(26);
+
 
   public SwerveSubsystem() {
     // IMPORTANT - when at competition, comment out next line, or set to low
@@ -79,6 +81,10 @@ public class SwerveSubsystem extends SubsystemBase {
     return run(() -> {
       swerveDrive.driveFieldOriented(velocity.get());
     });
+  }
+
+  public void resetPigeon(){
+    pigeon.setYaw(0);
   }
 
     public void setupPathPlanner()
@@ -143,6 +149,10 @@ public class SwerveSubsystem extends SubsystemBase {
       // Handle exception as needed
       e.printStackTrace();
     }
+  
+   
+
+
   }
   public Command getAutonomousCommand(String pathName)
   {
