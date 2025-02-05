@@ -26,6 +26,7 @@ public class RobotContainer {
 
 
   private final SendableChooser<Command> autoChooser;
+  private final Command DoNothing = new doNothing();
 
   public RobotContainer() {
     DriverStation.silenceJoystickConnectionWarning(true);
@@ -33,6 +34,7 @@ public class RobotContainer {
     driveBase.setDefaultCommand(driveFieldOrientatedAngularVelocity);
 
     NamedCommands.registerCommand("example", Commands.print("Hello World"));
+    NamedCommands.registerCommand("doNothingCmdTest", DoNothing);
 
     //to add auto, create auto in pathplanner
     autoChooser = AutoBuilder.buildAutoChooser();
@@ -53,11 +55,15 @@ public class RobotContainer {
                                           driverController::getRightY)
                                          .headingWhile(true);
 
+  SwerveInputStream driveRobotOriented = driveAngularVelocity.copy().robotRelative(true);
+
     Command driveFieldOrientatedDirectAngle = driveBase.driveFieldOriented(driveDirectAngle);
     Command driveFieldOrientatedAngularVelocity = driveBase.driveFieldOriented(driveAngularVelocity);
+    Command driveRobotOrientedCmd = driveBase.driveFieldOriented(driveRobotOriented);
 
   private void configureBindings() {
-    driverController.x().onTrue(new pigeonReset(driveBase));
+    driverController.x().whileTrue(driveRobotOrientedCmd);
+    
 
   }
 
