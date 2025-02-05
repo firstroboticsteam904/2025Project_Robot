@@ -3,10 +3,8 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -57,13 +55,14 @@ public class RobotContainer {
 
   SwerveInputStream driveRobotOriented = driveAngularVelocity.copy().robotRelative(true);
 
+
     Command driveFieldOrientatedDirectAngle = driveBase.driveFieldOriented(driveDirectAngle);
     Command driveFieldOrientatedAngularVelocity = driveBase.driveFieldOriented(driveAngularVelocity);
     Command driveRobotOrientedCmd = driveBase.driveFieldOriented(driveRobotOriented);
 
   private void configureBindings() {
-    driverController.x().whileTrue(driveRobotOrientedCmd);
-    
+    driverController.rightBumper().whileTrue(driveRobotOrientedCmd);
+    driverController.a().onTrue(new pigeonReset(driveBase));
 
   }
 
