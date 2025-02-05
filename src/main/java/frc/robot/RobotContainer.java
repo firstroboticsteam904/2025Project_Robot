@@ -21,7 +21,7 @@ import swervelib.SwerveInputStream;
 public class RobotContainer {
   private final SwerveSubsystem driveBase = new SwerveSubsystem();
   private final CommandXboxController driverController = new CommandXboxController(0);
-  private final
+  //private final
 
   private final SendableChooser<Command> autoChooser;
 
@@ -44,7 +44,7 @@ public class RobotContainer {
                                             .withControllerRotationAxis(driverController::getRightX)
                                             .deadband(OperatorConstants.Deadzone)
                                             .scaleTranslation(1)
-                                            .allianceRelativeControl(true);
+                                            .allianceRelativeControl(false);
 
    SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(
                                           driverController::getRightX, 
@@ -55,7 +55,7 @@ public class RobotContainer {
     Command driveFieldOrientatedAngularVelocity = driveBase.driveFieldOriented(driveAngularVelocity);
 
   private void configureBindings() {
-    driverController.x().onTrue(driveBase.resetPigeon());
+    //driverController.x().onTrue(driveBase.resetPigeon());
   }
 
   public Command getAutonomousCommand() {
