@@ -1,7 +1,11 @@
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
-// cody home test
+
+
+//If you are here as a 904 student, don't be (not yet at least). We will go over
+//everything during the meetings, and I don't want you to Copy/Paste.
+//This is for me, so that i can get a better understanding of everything this year code-wise
 
 package frc.robot;
 

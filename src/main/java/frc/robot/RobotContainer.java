@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.doNothing;
+import frc.robot.commands.pigeonReset;
 import frc.robot.constants.OperatorConstants;
 import frc.robot.subsystem.SwerveSubsystem;
 import swervelib.SwerveInputStream;
@@ -21,7 +23,7 @@ import swervelib.SwerveInputStream;
 public class RobotContainer {
   private final SwerveSubsystem driveBase = new SwerveSubsystem();
   private final CommandXboxController driverController = new CommandXboxController(0);
-  //private final
+
 
   private final SendableChooser<Command> autoChooser;
 
@@ -55,7 +57,8 @@ public class RobotContainer {
     Command driveFieldOrientatedAngularVelocity = driveBase.driveFieldOriented(driveAngularVelocity);
 
   private void configureBindings() {
-    //driverController.x().onTrue(driveBase.resetPigeon());
+    driverController.x().onTrue(new pigeonReset(driveBase));
+
   }
 
   public Command getAutonomousCommand() {
