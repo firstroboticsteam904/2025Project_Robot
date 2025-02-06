@@ -53,17 +53,16 @@ public class RobotContainer {
                                           driverController::getRightY)
                                          .headingWhile(true);
 
-  SwerveInputStream driveRobotOriented = driveAngularVelocity.copy().robotRelative(true);
-
+    SwerveInputStream driveRobotOriented = driveAngularVelocity.copy().robotRelative(true)
+                                         .allianceRelativeControl(false);
 
     Command driveFieldOrientatedDirectAngle = driveBase.driveFieldOriented(driveDirectAngle);
     Command driveFieldOrientatedAngularVelocity = driveBase.driveFieldOriented(driveAngularVelocity);
-    Command driveRobotOrientedCmd = driveBase.driveFieldOriented(driveRobotOriented);
+    Command driveRobotOrientedAngularVelocity  = driveBase.driveFieldOriented(driveRobotOriented);
 
   private void configureBindings() {
-    driverController.rightBumper().whileTrue(driveRobotOrientedCmd);
     driverController.a().onTrue(new pigeonReset(driveBase));
-
+    driverController.x().whileTrue(driveRobotOrientedAngularVelocity);
   }
 
   public Command getAutonomousCommand() {

@@ -87,10 +87,6 @@ public class SwerveSubsystem extends SubsystemBase {
 
   }
 
-  public SwerveDrive getSwerveDrive() {
-    return swerveDrive;
-  }
-
   public void driveFieldOrientated(ChassisSpeeds velocity){
     swerveDrive.driveFieldOriented(velocity);
   }
@@ -101,8 +97,14 @@ public class SwerveSubsystem extends SubsystemBase {
   }
 
 
+
+  public SwerveDrive getSwerveDrive() {
+    return swerveDrive;
+  }
+
+
   public void resetPigeon(){
-    pigeon.setYaw(0);
+    swerveDrive.zeroGyro();
   }
 
     public void setupPathPlanner()
@@ -140,9 +142,9 @@ public class SwerveSubsystem extends SubsystemBase {
           new PPHolonomicDriveController(
             //TO-DO adjust PID Constants
               // PPHolonomicController is the built in path following controller for holonomic drive trains
-              new PIDConstants(5.0, 0.0, 0.0),
+              new PIDConstants(3.0, 0.0, 0.0),
               // Translation PID constants
-              new PIDConstants(5.0, 0.0, 0.0)
+              new PIDConstants(3.0, 0.0, 0.0)
               // Rotation PID constants
           ),
           config,
