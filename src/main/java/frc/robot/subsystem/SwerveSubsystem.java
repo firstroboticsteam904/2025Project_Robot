@@ -31,6 +31,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.Odometry;
 import edu.wpi.first.math.util.Units;
 import static edu.wpi.first.units.Units.Meter;
 
@@ -85,6 +86,7 @@ public class SwerveSubsystem extends SubsystemBase {
 
   public void resetPigeon(){
     pigeon.setYaw(0);
+    System.out.println("Pigeon is reset");
   }
 
     public void setupPathPlanner()
@@ -121,9 +123,9 @@ public class SwerveSubsystem extends SubsystemBase {
           // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
           new PPHolonomicDriveController(
               // PPHolonomicController is the built in path following controller for holonomic drive trains
-              new PIDConstants(5.0, 0.0, 0.0),
+              new PIDConstants(1.0, 0.0, 0.0),
               // Translation PID constants
-              new PIDConstants(5.0, 0.0, 0.0)
+              new PIDConstants(1.0, 0.0, 0.0)
               // Rotation PID constants
           ),
           config,

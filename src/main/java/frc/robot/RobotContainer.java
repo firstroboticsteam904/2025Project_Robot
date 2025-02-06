@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.resetPigeon;
 import frc.robot.constants.OperatorConstants;
 import frc.robot.subsystem.SwerveSubsystem;
 import swervelib.SwerveInputStream;
@@ -21,7 +22,7 @@ import swervelib.SwerveInputStream;
 public class RobotContainer {
   private final SwerveSubsystem driveBase = new SwerveSubsystem();
   private final CommandXboxController driverController = new CommandXboxController(0);
-  private final
+
 
   private final SendableChooser<Command> autoChooser;
 
@@ -39,23 +40,27 @@ public class RobotContainer {
   }
 
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(driveBase.getSwerveDrive(), 
-                                            () -> driverController.getLeftY() * - 1,
-                                            () -> driverController.getLeftX() * - 1)
+                                            () -> driverController.getLeftY() * 1,
+                                            () -> driverController.getLeftX() * 1)
                                             .withControllerRotationAxis(driverController::getRightX)
                                             .deadband(OperatorConstants.Deadzone)
                                             .scaleTranslation(1)
-                                            .allianceRelativeControl(true);
+                                            .allianceRelativeControl(false);
 
-   SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(
+   /*SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(
                                           driverController::getRightX, 
                                           driverController::getRightY)
-                                         .headingWhile(true);
+                                         .headingWhile(true);*/
 
-    Command driveFieldOrientatedDirectAngle = driveBase.driveFieldOriented(driveDirectAngle);
+  SwerveInputStream driveRobotOriented = driveAngularVelocity.copy().robotRelative(true);
+
+    //Command driveFieldOrientatedDirectAngle = driveBase.driveFieldOriented(driveDirectAngle);
     Command driveFieldOrientatedAngularVelocity = driveBase.driveFieldOriented(driveAngularVelocity);
+    Command driverobotOrientedCmd = driveBase.driveFieldOriented(driveRobotOriented);
 
   private void configureBindings() {
-    driverController.x().onTrue(driveBase.resetPigeon());
+    driverController.y().onTrue(new resetPigeon(driveBase));
+    driverController.x().whileTrue(driverobotOrientedCmd);
   }
 
   public Command getAutonomousCommand() {
