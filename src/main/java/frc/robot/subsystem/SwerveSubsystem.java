@@ -77,6 +77,8 @@ public class SwerveSubsystem extends SubsystemBase {
       throw new RuntimeException(e);
     }
 
+    swerveDrive.setAngularVelocityCompensation(true, false, -0.15);
+
     setupPathPlanner();
 
   }
@@ -89,10 +91,14 @@ public class SwerveSubsystem extends SubsystemBase {
 
   public void driveFieldOrientated(ChassisSpeeds velocity){
     swerveDrive.driveFieldOriented(velocity);
+    //To-Do impliment in main code line. This will help with swaying directions while rotating.
+    //adjust angulat co-effiecent until its better. invert it if it does do what it should
+    
   }
   public Command driveFieldOriented(Supplier<ChassisSpeeds> velocity){
     return run(() -> {
       swerveDrive.driveFieldOriented(velocity.get());
+
     });
   }
 

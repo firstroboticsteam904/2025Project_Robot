@@ -1,0 +1,56 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "allianceCageStart"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "example"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "allianceCageFeed1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "allianceCageScore"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "allianceCageScore2Feed"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "allianceCageScore"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

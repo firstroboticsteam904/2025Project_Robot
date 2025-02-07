@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 7.572945205485102,
+        "y": 6.166160102744928
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.545973153968941,
+        "y": 5.766975562004213
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.228938356164383,
+        "y": 5.234567636986301
+      },
+      "prevControl": {
+        "x": 6.111773904367229,
+        "y": 5.595041779183049
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "blueCageScore"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.91,
+    "maxAcceleration": 5.9,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 1425.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -121.17786258405891
+  },
+  "reversed": false,
+  "folder": "allianceCageStart",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -136.39718102731328
+  },
+  "useDefaultConstraints": true
+}
