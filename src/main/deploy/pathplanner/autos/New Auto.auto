@@ -5,9 +5,21 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "example"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ZeroGyro"
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "Square"
+            "pathName": "Backup"
           }
         }
       ]

@@ -85,13 +85,13 @@ public class SwerveSubsystem extends SubsystemBase {
   }
 
   public void resetPigeon(){
-    pigeon.setYaw(0);
+    swerveDrive.zeroGyro();
     System.out.println("Pigeon is reset");
   }
 
     public void setupPathPlanner()
-  {
-    // Load the RobotConfig from the GUI settings. You should probably
+  
+{    // Load the RobotConfig from the GUI settings. You should probably
     // store this in your Constants file
     RobotConfig config;
     try
@@ -123,9 +123,9 @@ public class SwerveSubsystem extends SubsystemBase {
           // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
           new PPHolonomicDriveController(
               // PPHolonomicController is the built in path following controller for holonomic drive trains
-              new PIDConstants(1.0, 0.0, 0.0),
+              new PIDConstants(0.8, 0.0, 0.0),
               // Translation PID constants
-              new PIDConstants(1.0, 0.0, 0.0)
+              new PIDConstants(0.00025, 0.009, 0.01)
               // Rotation PID constants
           ),
           config,

@@ -22,7 +22,7 @@ import swervelib.SwerveInputStream;
 public class RobotContainer {
   private final SwerveSubsystem driveBase = new SwerveSubsystem();
   private final CommandXboxController driverController = new CommandXboxController(0);
-
+  private final Command zeroGyro = new resetPigeon(driveBase);
 
   private final SendableChooser<Command> autoChooser;
 
@@ -32,16 +32,17 @@ public class RobotContainer {
     driveBase.setDefaultCommand(driveFieldOrientatedAngularVelocity);
 
     NamedCommands.registerCommand("example", Commands.print("Hello World"));
+    NamedCommands.registerCommand("ZeroGyro", zeroGyro);
 
     //to add auto, create auto in pathplanner
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
-    
+
   }
 
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(driveBase.getSwerveDrive(), 
-                                            () -> driverController.getLeftY() * 1,
-                                            () -> driverController.getLeftX() * 1)
+                                            () -> driverController.getLeftY() * -1,
+                                            () -> driverController.getLeftX() * -1)
                                             .withControllerRotationAxis(driverController::getRightX)
                                             .deadband(OperatorConstants.Deadzone)
                                             .scaleTranslation(1)
