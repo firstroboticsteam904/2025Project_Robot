@@ -11,21 +11,15 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "ZeroGyro"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "Backup"
+            "pathName": "Teaching Path"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "testAutos",
   "choreoAuto": false
 }

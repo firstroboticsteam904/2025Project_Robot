@@ -2,8 +2,13 @@
   "robotWidth": 0.9,
   "robotLength": 0.9,
   "holonomicMode": true,
-  "pathFolders": [],
-  "autoFolders": [],
+  "pathFolders": [
+    "testpathpart2",
+    "testPaths"
+  ],
+  "autoFolders": [
+    "testAutos"
+  ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,
   "defaultMaxAngVel": 540.0,
@@ -14,7 +19,7 @@
   "robotTrackwidth": 0.546,
   "driveWheelRadius": 0.0508,
   "driveGearing": 6.75,
-  "maxDriveSpeed": 3.912108,
+  "maxDriveSpeed": 3.912,
   "driveMotorType": "NEO",
   "driveCurrentLimit": 40.0,
   "wheelCOF": 1.1,
