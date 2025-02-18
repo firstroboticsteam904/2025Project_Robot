@@ -48,6 +48,14 @@ public class RobotContainer {
                                             .scaleTranslation(1)
                                             .allianceRelativeControl(true);
 
+  SwerveInputStream limelightDrive = SwerveInputStream.of(driveBase.getSwerveDrive(),
+                                            () -> driverController.getLeftY() * -1,
+                                            () -> driverController.getLeftX() * -1)
+                                            .withControllerRotationAxis(driveBase.PIDlimelightRotation())
+                                            .deadband(OperatorConstants.limelightDeadzone)
+                                            .scaleTranslation(0.85)
+                                            .allianceRelativeControl(false);
+
    /*SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(
                                           driverController::getRightX, 
                                           driverController::getRightY)
@@ -58,10 +66,18 @@ public class RobotContainer {
     //Command driveFieldOrientatedDirectAngle = driveBase.driveFieldOriented(driveDirectAngle);
     Command driveFieldOrientatedAngularVelocity = driveBase.driveFieldOriented(driveAngularVelocity);
     Command driverobotOrientedCmd = driveBase.driveFieldOriented(driveRobotOriented);
+    Command limelightDriveCmd = driveBase.driveFieldOriented(limelightDrive);
 
   private void configureBindings() {
     driverController.y().onTrue(new resetPigeon(driveBase));
-    driverController.x().whileTrue(driverobotOrientedCmd);
+    driverController.x()
+    .onTrue(Commands.runOnce(() -> {driveAngularVelocity.scaleTranslation(0.1);
+    }))
+    .onFalse(Commands.runOnce(() -> {
+      driveAngularVelocity.scaleTranslation(1);
+    }));
+
+    driverController.rightBumper().whileTrue(limelightDriveCmd);
   }
 
   public Command getAutonomousCommand() {

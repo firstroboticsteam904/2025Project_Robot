@@ -11,7 +11,8 @@ public final class constants {
     public static final class OperatorConstants{
 
         public static final double Deadzone = 0.15;
+        public static final double limelightDeadzone = 0.05;
       }
 
-    public static final double maximumSpeed = Units.feetToMeters(12.835);
+    public static final double maximumSpeed = Units.feetToMeters(13.59);
 }

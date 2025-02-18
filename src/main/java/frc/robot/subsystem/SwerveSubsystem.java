@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants;
 import java.io.File;
+import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 
 import com.ctre.phoenix.sensors.PigeonIMU;
@@ -27,12 +28,17 @@ import swervelib.SwerveDrive;
 import swervelib.SwerveInputStream;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.Odometry;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
+
 import static edu.wpi.first.units.Units.Meter;
 
 public class SwerveSubsystem extends SubsystemBase {
@@ -42,8 +48,12 @@ public class SwerveSubsystem extends SubsystemBase {
   File directory = new File(Filesystem.getDeployDirectory(),"swerve");
   SwerveDrive  swerveDrive;
 
-  private final AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape);
+  //private final AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape);
   private final PigeonIMU pigeon = new PigeonIMU(26);
+    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+    NetworkTableEntry tx = table.getEntry("tx");
+    NetworkTableEntry ty = table.getEntry("ty");
+    NetworkTableEntry ta = table.getEntry("ta");
 
 
   public SwerveSubsystem() {
@@ -89,6 +99,15 @@ public class SwerveSubsystem extends SubsystemBase {
   public void resetPigeon(){
     swerveDrive.zeroGyro();
     System.out.println("Pigeon is reset");
+  }
+
+    public DoubleSupplier PIDlimelightRotation(){
+    PIDController limelightPID = new PIDController(0.025, 0.00009, 0.000007);
+    return () -> {
+      double txDouble = tx.getDouble(0);
+      double rotationPower = limelightPID.calculate(txDouble, 0);
+      return rotationPower * -1;
+    };
   }
 
     public void setupPathPlanner()
