@@ -102,11 +102,20 @@ public class SwerveSubsystem extends SubsystemBase {
   }
 
     public DoubleSupplier PIDlimelightRotation(){
-    PIDController limelightPID = new PIDController(0.025, 0.00009, 0.000007);
+    PIDController limelightRotationPID = new PIDController(0.025, 0.00009, 0.00007);
     return () -> {
       double txDouble = tx.getDouble(0);
-      double rotationPower = limelightPID.calculate(txDouble, 0);
+      double rotationPower = limelightRotationPID.calculate(txDouble, 0);
       return rotationPower * -1;
+    };
+  }
+
+  public DoubleSupplier PIDlimslightdrive(){
+    PIDController limelightdrivePidController = new PIDController(0.025, 0.00009, 0.00007);
+    return () -> {
+      double tyDouble = ty.getDouble(0);
+     double drivepower = limelightdrivePidController.calculate(tyDouble, -5);
+     return drivepower * -1;  
     };
   }
 
@@ -146,7 +155,7 @@ public class SwerveSubsystem extends SubsystemBase {
               // PPHolonomicController is the built in path following controller for holonomic drive trains
               new PIDConstants(5, 0.0, 0.0),
               // Translation PID constants
-              new PIDConstants(0.00045, 0.009, 0.01)
+              new PIDConstants(5, 0.009, 0.01)
               // Rotation PID constants
           ),
           config,
