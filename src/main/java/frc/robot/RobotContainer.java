@@ -13,14 +13,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.climberDowm;
+import frc.robot.commands.climberUp;
 import frc.robot.commands.resetPigeon;
 import frc.robot.constants.OperatorConstants;
 import frc.robot.subsystem.SwerveSubsystem;
+import frc.robot.subsystem.climber;
 import swervelib.SwerveInputStream;
 
 //TO-DO turn needs to be inverted
 public class RobotContainer {
   private final SwerveSubsystem driveBase = new SwerveSubsystem();
+  private final climber Climber = new climber();
   private final CommandXboxController driverController = new CommandXboxController(0);
   private final Command zeroGyro = new resetPigeon(driveBase);
 
@@ -78,6 +82,8 @@ public class RobotContainer {
     }));
 
     driverController.rightBumper().whileTrue(limelightDriveCmd);
+    driverController.a().onTrue(new climberUp(Climber));
+    driverController.b().onTrue(new climberDowm(Climber));
   }
 
   public Command getAutonomousCommand() {

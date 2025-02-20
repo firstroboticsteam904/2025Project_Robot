@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class intakeClaw extends SubsystemBase {
   /** Creates a new intakeClaw. */
+  
   public intakeClaw() {}
 
   @Override

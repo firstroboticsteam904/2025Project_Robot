@@ -16,11 +16,12 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private final RobotContainer m_robotContainer;
- public static Compressor blueyCompressor = new Compressor(PneumaticsModuleType.REVPH);
-public static  PneumaticHub bingoPneumaticHub = new PneumaticHub(35);
+    public static Compressor blueyCompressor = new Compressor(PneumaticsModuleType.REVPH);
+    public static  PneumaticHub bingoPneumaticHub = new PneumaticHub(35);
 
   public Robot() {
     m_robotContainer = new RobotContainer();
+    blueyCompressor.enableDigital();
 
   }
 
