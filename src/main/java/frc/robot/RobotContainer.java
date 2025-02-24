@@ -7,6 +7,7 @@ package frc.robot;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -58,14 +59,18 @@ public class RobotContainer {
                                             .withControllerRotationAxis(driveBase.PIDlimelightRotation())
                                             .deadband(OperatorConstants.limelightDeadzone)
                                             .scaleTranslation(0.85)
-                                            .allianceRelativeControl(false);
+                                            .allianceRelativeControl(false)
+                                            .robotRelative(true);
+
 
    /*SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(
                                           driverController::getRightX, 
                                           driverController::getRightY)
                                          .headingWhile(true);*/
 
-  SwerveInputStream driveRobotOriented = driveAngularVelocity.copy().robotRelative(true);
+  SwerveInputStream driveRobotOriented = driveAngularVelocity.copy()
+                                        .allianceRelativeControl(false)
+                                        .robotRelative(true);
 
     //Command driveFieldOrientatedDirectAngle = driveBase.driveFieldOriented(driveDirectAngle);
     Command driveFieldOrientatedAngularVelocity = driveBase.driveFieldOriented(driveAngularVelocity);
@@ -75,7 +80,7 @@ public class RobotContainer {
   private void configureBindings() {
     driverController.y().onTrue(new resetPigeon(driveBase));
     driverController.x()
-    .onTrue(Commands.runOnce(() -> {driveAngularVelocity.scaleTranslation(0.1);
+    .onTrue(Commands.runOnce(() -> {driveAngularVelocity.scaleTranslation(MathUtil.interpolate(1.0, 0.1, 1));
     }))
     .onFalse(Commands.runOnce(() -> {
       driveAngularVelocity.scaleTranslation(1);

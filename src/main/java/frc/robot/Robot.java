@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystem.climber;
 
 public class Robot extends TimedRobot { 
   private Command m_autonomousCommand;
@@ -18,6 +19,7 @@ public class Robot extends TimedRobot {
   private final RobotContainer m_robotContainer;
     public static Compressor blueyCompressor = new Compressor(PneumaticsModuleType.REVPH);
     public static  PneumaticHub bingoPneumaticHub = new PneumaticHub(35);
+    private final climber Climber = new climber();
 
   public Robot() {
     m_robotContainer = new RobotContainer();
@@ -32,7 +34,9 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    Climber.climberDownGraby();
+  }
 
   @Override
   public void disabledPeriodic() {}

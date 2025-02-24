@@ -19,7 +19,9 @@ public class resetPigeon extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    System.out.println("Pigeon Reset!");
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

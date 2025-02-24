@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class intakeClaw extends SubsystemBase {
   /** Creates a new intakeClaw. */
   
+  //TO-DO
+  //Add Pneumatics, Add Intake/Output Motor
   public intakeClaw() {}
 
   @Override

@@ -8,6 +8,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Elevator extends SubsystemBase {
   /** Creates a new Elevator. */
+
+  //TO-DO
+  //Add elevator NEO motor
   public Elevator() {}
 
   @Override
