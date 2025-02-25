@@ -11,6 +11,7 @@ public class intakeClaw extends SubsystemBase {
   
   //TO-DO
   //Add Pneumatics, Add Intake/Output Motor
+  //Get current Velocity of motor to know if game piece is grabbed or not
   public intakeClaw() {}
 
   @Override

@@ -12,8 +12,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Elevator extends SubsystemBase {
   /** Creates a new Elevator. */
   private final SparkMax elevatorMotor = new SparkMax(13, MotorType.kBrushless);
-  //TO-DO
-  //Add elevator NEO motor
+
   public Elevator() {}
 
   @Override
@@ -21,14 +20,20 @@ public class Elevator extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
+  //TO-DO Create PIDController to calculate speed of elevator going up
   public void elevatorUp(){
     elevatorMotor.set(-0.5);
-    System.out.println("Elevator going up!");
+
   }
 
+  //TO-DO Create PIDController to calculate speed of elevator going down
   public void elevatorDown(){
     elevatorMotor.set(0.5);
-    System.out.println("Elevator going down!");
+
   }
+
+  //TO-DO Create Method to get encoder value reading from NEO Motor
+  //TO-DO Get set encoder values for Intake, L1, L2, L3, L4, "Home"
+  
 
 }
