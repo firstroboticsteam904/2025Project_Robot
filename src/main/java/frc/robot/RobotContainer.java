@@ -13,11 +13,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.climberDowm;
 import frc.robot.commands.climberUp;
+import frc.robot.commands.elevatorDown;
+import frc.robot.commands.elevatorUp;
 import frc.robot.commands.resetPigeon;
 import frc.robot.constants.OperatorConstants;
+import frc.robot.subsystem.Elevator;
 import frc.robot.subsystem.SwerveSubsystem;
 import frc.robot.subsystem.climber;
 import swervelib.SwerveInputStream;
@@ -26,7 +30,9 @@ import swervelib.SwerveInputStream;
 public class RobotContainer {
   private final SwerveSubsystem driveBase = new SwerveSubsystem();
   private final climber Climber = new climber();
+  private final Elevator elevator = new Elevator();
   private final CommandXboxController driverController = new CommandXboxController(0);
+  private final CommandXboxController operaterController = new CommandXboxController(1);
   private final Command zeroGyro = new resetPigeon(driveBase);
 
   private final SendableChooser<Command> autoChooser;
@@ -89,6 +95,9 @@ public class RobotContainer {
     driverController.rightBumper().whileTrue(limelightDriveCmd);
     driverController.a().onTrue(new climberUp(Climber));
     driverController.b().onTrue(new climberDowm(Climber));
+
+    operaterController.rightTrigger().whileTrue(new elevatorUp(elevator));
+    operaterController.leftTrigger().whileTrue(new elevatorDown(elevator));
   }
 
   public Command getAutonomousCommand() {
