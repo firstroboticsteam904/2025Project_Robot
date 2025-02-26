@@ -17,13 +17,13 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private final RobotContainer m_robotContainer;
-    public static Compressor blueyCompressor = new Compressor(PneumaticsModuleType.REVPH);
+    //public static Compressor blueyCompressor = new Compressor(PneumaticsModuleType.REVPH);
     public static  PneumaticHub bingoPneumaticHub = new PneumaticHub(35);
     private final climber Climber = new climber();
 
   public Robot() {
     m_robotContainer = new RobotContainer();
-    blueyCompressor.enableDigital();
+    //blueyCompressor.enableDigital();
 
   }
 

@@ -4,6 +4,7 @@
 
 package frc.robot.subsystem;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class intakeClaw extends SubsystemBase {
@@ -12,7 +13,9 @@ public class intakeClaw extends SubsystemBase {
   //TO-DO
   //Add Pneumatics, Add Intake/Output Motor
   //Get current Velocity of motor to know if game piece is grabbed or not
-  public intakeClaw() {}
+  public intakeClaw() {
+
+  }
 
   @Override
   public void periodic() {
