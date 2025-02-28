@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Elevator extends SubsystemBase {
   /** Creates a new Elevator. */
-  private final SparkMax elevatorMotor = new SparkMax(13, MotorType.kBrushless);
+  private final SparkMax elevatorMotor = new SparkMax(14, MotorType.kBrushless);
 
   public Elevator() {}
 
@@ -21,16 +21,11 @@ public class Elevator extends SubsystemBase {
   }
 
   //TO-DO Create PIDController to calculate speed of elevator going up
-  public void elevatorUp(){
-    elevatorMotor.set(-0.5);
+  public void elevatorSpeed(double elevatorSpeed){
+    elevatorMotor.set(elevatorSpeed);
 
   }
 
-  //TO-DO Create PIDController to calculate speed of elevator going down
-  public void elevatorDown(){
-    elevatorMotor.set(0.5);
-
-  }
 
   //TO-DO Create Method to get encoder value reading from NEO Motor
   //TO-DO Get set encoder values for Intake, L1, L2, L3, L4, "Home"

@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.climberDowm;
 import frc.robot.commands.climberUp;
 import frc.robot.commands.elevatorDown;
+import frc.robot.commands.elevatorStop;
 import frc.robot.commands.elevatorUp;
 import frc.robot.commands.resetPigeon;
 import frc.robot.constants.OperatorConstants;
@@ -96,8 +97,11 @@ public class RobotContainer {
     driverController.a().onTrue(new climberUp(Climber));
     driverController.b().onTrue(new climberDowm(Climber));
 
-    operaterController.rightTrigger().whileTrue(new elevatorUp(elevator));
-    operaterController.leftTrigger().whileTrue(new elevatorDown(elevator));
+    operaterController.leftBumper().whileTrue(new elevatorDown(elevator));
+    operaterController.rightBumper().whileTrue(new elevatorUp(elevator));
+
+    operaterController.leftBumper().whileFalse(new elevatorStop(elevator));
+    operaterController.rightBumper().whileFalse(new elevatorStop(elevator));
   }
 
   public Command getAutonomousCommand() {
