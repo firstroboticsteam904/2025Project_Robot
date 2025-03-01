@@ -20,11 +20,15 @@ import frc.robot.commands.climberUp;
 import frc.robot.commands.elevatorDown;
 import frc.robot.commands.elevatorStop;
 import frc.robot.commands.elevatorUp;
+import frc.robot.commands.negativeClawSpeed;
+import frc.robot.commands.positiveClawSpeed;
 import frc.robot.commands.resetPigeon;
+import frc.robot.commands.stopClawSpeed;
 import frc.robot.constants.OperatorConstants;
 import frc.robot.subsystem.Elevator;
 import frc.robot.subsystem.SwerveSubsystem;
 import frc.robot.subsystem.climber;
+import frc.robot.subsystem.intakeClaw;
 import swervelib.SwerveInputStream;
 
 //TO-DO turn needs to be inverted
@@ -32,6 +36,7 @@ public class RobotContainer {
   private final SwerveSubsystem driveBase = new SwerveSubsystem();
   private final climber Climber = new climber();
   private final Elevator elevator = new Elevator();
+  private final intakeClaw intakeClaw= new intakeClaw();
   private final CommandXboxController driverController = new CommandXboxController(0);
   private final CommandXboxController operaterController = new CommandXboxController(1);
   private final Command zeroGyro = new resetPigeon(driveBase);
@@ -99,9 +104,14 @@ public class RobotContainer {
 
     operaterController.leftBumper().whileTrue(new elevatorDown(elevator));
     operaterController.rightBumper().whileTrue(new elevatorUp(elevator));
+    operaterController.rightTrigger(0.5).whileTrue(new positiveClawSpeed(intakeClaw));
+    operaterController.leftTrigger(0.5).whileTrue(new negativeClawSpeed(intakeClaw));
 
     operaterController.leftBumper().whileFalse(new elevatorStop(elevator));
     operaterController.rightBumper().whileFalse(new elevatorStop(elevator));
+    operaterController.leftTrigger(0.49).whileFalse(new stopClawSpeed(intakeClaw));
+    operaterController.rightTrigger(0.49
+    ).whileFalse(new stopClawSpeed(intakeClaw));
   }
 
   public Command getAutonomousCommand() {

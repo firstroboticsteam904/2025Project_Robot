@@ -13,7 +13,9 @@ public class Elevator extends SubsystemBase {
   /** Creates a new Elevator. */
   private final SparkMax elevatorMotor = new SparkMax(14, MotorType.kBrushless);
 
-  public Elevator() {}
+  public Elevator() {
+    
+  }
 
   @Override
   public void periodic() {
