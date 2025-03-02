@@ -35,10 +35,6 @@ public class negativeClawSpeed extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(intakeClaw.clawMotorCurrent() > 1){
-      return true;
-    } else {
-      return false;
-    }
+    return false;
   }
 }

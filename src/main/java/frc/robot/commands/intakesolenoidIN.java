@@ -5,33 +5,27 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystem.Elevator;
+import frc.robot.subsystem.intakeClaw;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class elevatorUp extends Command {
-  /** Creates a new elevatorMove. */
-  Elevator elevator;
-  double desiredElevatorTicks;
-  public elevatorUp(Elevator elevator, double elevatorTicks) {
-    this.elevator = elevator;
-    desiredElevatorTicks = elevatorTicks;
+public class intakesolenoidIN extends Command {
+  intakeClaw rainClaw; 
+  /** Creates a new intakesolenoid. */
+  public intakesolenoidIN(intakeClaw rainClaw) {
+    this.rainClaw = rainClaw; 
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(elevator);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    System.out.println("she always eats");
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      double elevatorGo = elevator.ElevatorTravel();
-      if(elevatorGo <= desiredElevatorTicks){
-        elevator.elevatorSpeed(-0.5);
-      } else{
-        elevator.elevatorSpeed(0);
-      }
+    rainClaw.intakePrivotin();
   }
 
   // Called once the command ends or is interrupted.
@@ -41,12 +35,6 @@ public class elevatorUp extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (elevator.ElevatorTravel() >= desiredElevatorTicks) {
-      elevator.elevatorSpeed(0);
-      return true;
-    }
-    else{
-      return false;
-    }
+    return true;
   }
 }

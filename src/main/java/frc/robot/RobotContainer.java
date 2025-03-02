@@ -13,13 +13,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.climberDowm;
 import frc.robot.commands.climberUp;
 import frc.robot.commands.elevatorDown;
 import frc.robot.commands.elevatorStop;
 import frc.robot.commands.elevatorUp;
+import frc.robot.commands.intakesolenoidIN;
+import frc.robot.commands.intakesolenoidOut;
 import frc.robot.commands.negativeClawSpeed;
 import frc.robot.commands.positiveClawSpeed;
 import frc.robot.commands.resetPigeon;
@@ -103,9 +104,11 @@ public class RobotContainer {
     driverController.b().onTrue(new climberDowm(Climber));
 
     operaterController.leftBumper().whileTrue(new elevatorDown(elevator));
-    operaterController.rightBumper().whileTrue(new elevatorUp(elevator));
+    operaterController.rightBumper().whileTrue(new elevatorUp(elevator, 40));
     operaterController.rightTrigger(0.5).whileTrue(new positiveClawSpeed(intakeClaw));
     operaterController.leftTrigger(0.5).whileTrue(new negativeClawSpeed(intakeClaw));
+    operaterController.y().onTrue(new intakesolenoidOut(intakeClaw));
+    operaterController.x().onTrue(new intakesolenoidIN(intakeClaw));
 
     operaterController.leftBumper().whileFalse(new elevatorStop(elevator));
     operaterController.rightBumper().whileFalse(new elevatorStop(elevator));

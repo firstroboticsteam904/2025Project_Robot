@@ -5,6 +5,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -20,10 +22,12 @@ public class Robot extends TimedRobot {
     public static Compressor blueyCompressor = new Compressor(PneumaticsModuleType.REVPH);
     public static  PneumaticHub bingoPneumaticHub = new PneumaticHub(35);
     private final climber Climber = new climber();
+    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 
   public Robot() {
     m_robotContainer = new RobotContainer();
     blueyCompressor.enableDigital();
+     NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").setNumber(2);
 
   }
 
