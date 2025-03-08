@@ -2,30 +2,29 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.Elevator;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystem.intakeClaw;
+import frc.robot.subsystem.Elevator;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class intakesolenoidOut extends Command {
-  intakeClaw rainClaw; 
-  /** Creates a new intakesolenoid. */
-  public intakesolenoidOut(intakeClaw rainClaw) {
-    this.rainClaw = rainClaw; 
+public class elevatorStop extends Command {
+  /** Creates a new elevatorMove. */
+  Elevator elevator;
+  public elevatorStop(Elevator elevator) {
+    this.elevator = elevator;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(elevator);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    System.out.println("shawnna is the best");
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    rainClaw.intakePivotOut();
+    elevator.elevatorSpeed(0);
   }
 
   // Called once the command ends or is interrupted.
@@ -35,6 +34,6 @@ public class intakesolenoidOut extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

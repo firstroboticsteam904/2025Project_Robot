@@ -22,12 +22,13 @@ public class Robot extends TimedRobot {
     public static Compressor blueyCompressor = new Compressor(PneumaticsModuleType.REVPH);
     public static  PneumaticHub bingoPneumaticHub = new PneumaticHub(35);
     private final climber Climber = new climber();
-    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+    //NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 
   public Robot() {
     m_robotContainer = new RobotContainer();
     blueyCompressor.enableDigital();
-     NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").setNumber(2);
+    //NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").setNumber(2);
+  
 
   }
 

@@ -2,16 +2,16 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.Climber;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystem.climber;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class climberDowm extends Command {
+public class climberDown extends Command {
 private climber kClimber;
   /** Creates a new climberUp. */
-  public climberDowm(climber kClimber) {
+  public climberDown(climber kClimber) {
     this.kClimber = kClimber;
     // Use addRequirements() here to declare subsystem dependencies.
   }
