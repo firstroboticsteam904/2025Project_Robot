@@ -12,10 +12,10 @@ import frc.robot.Robot;
 public class climber extends SubsystemBase {
 
   /** Creates a new climber. */
-  public static DoubleSolenoid climberSolenoid = Robot.bingoPneumaticHub.makeDoubleSolenoid(0, 1);
+  //public static DoubleSolenoid climberSolenoid = Robot.bingoPneumaticHub.makeDoubleSolenoid(0, 1);
 
   public climber() {
-    climberSolenoid.set(Value.kReverse);
+    //climberSolenoid.set(Value.kReverse);
   }
 
   @Override
@@ -24,11 +24,11 @@ public class climber extends SubsystemBase {
   }
 
   public void climberUpGraby() {
-    climberSolenoid.set(Value.kForward);
+    //climberSolenoid.set(Value.kForward);
   }
 
     public void climberDownGraby() {
-       climberSolenoid.set(Value.kReverse);
+       //climberSolenoid.set(Value.kReverse);
     }
 
 }
