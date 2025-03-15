@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.Climber.climberDown;
 import frc.robot.commands.Climber.climberUp;
+import frc.robot.commands.Elevator.elevatorControl;
 import frc.robot.commands.Elevator.elevatorDown;
 import frc.robot.commands.Elevator.elevatorStop;
 import frc.robot.commands.Elevator.elevatorUp;
@@ -130,6 +131,8 @@ public class RobotContainer {
     operaterController.leftTrigger(0.49).whileFalse(new stopClawSpeed(intakeClaw));
     operaterController.rightTrigger(0.49
     ).whileFalse(new stopClawSpeed(intakeClaw));
+    operaterController.a().onTrue(new elevatorControl(elevator, 90));
+    operaterController.b().onTrue(new elevatorControl(elevator, 45));
   }
 
   public Command getAutonomousCommand() {

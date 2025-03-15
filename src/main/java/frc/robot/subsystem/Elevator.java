@@ -5,16 +5,21 @@
 package frc.robot.subsystem;
 
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkBaseConfig;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Elevator extends SubsystemBase {
   /** Creates a new Elevator. */
   private final SparkMax elevatorMotor = new SparkMax(14, MotorType.kBrushless);
-  public RelativeEncoder elevatorEncoder = elevatorMotor.getEncoder(); 
+  public RelativeEncoder elevatorEncoder = elevatorMotor.getEncoder();
+
+
 
   public Elevator() {
     
@@ -23,7 +28,7 @@ public class Elevator extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    
+
   }
 
   //TO-DO Create PIDController to calculate speed of elevator going up
@@ -32,8 +37,9 @@ public class Elevator extends SubsystemBase {
     SmartDashboard.putNumber("elevatorencoder", elevatorEncoder.getPosition() * -1);
   }
 
+
   public double ElevatorTravel(){
-    double elevatorTicks = elevatorEncoder.getPosition() * -1;
+    double elevatorTicks = (elevatorEncoder.getPosition() * -1);
 
     return elevatorTicks;
   }
