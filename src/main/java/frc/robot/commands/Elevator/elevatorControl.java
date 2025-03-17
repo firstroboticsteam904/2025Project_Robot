@@ -5,7 +5,6 @@
 package frc.robot.commands.Elevator;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystem.Elevator;
 
@@ -32,17 +31,25 @@ public class elevatorControl extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    elevatorController.calculate(kElevator.ElevatorTravel(), desiredElevatorTicks);
+    kElevator.elevatorSpeed(elevatorController.calculate(kElevator.ElevatorTravel(), desiredElevatorTicks));
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    if(kElevator.ElevatorTravel() >= 127){
+      kElevator.elevatorSpeed(0.0);
+      interrupted = true;
+    } else{
+      interrupted = false;
+    }
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     if(elevatorController.atSetpoint()){
+      kElevator.elevatorSpeed(-0.1);
       return true;
     } else {
       return false;

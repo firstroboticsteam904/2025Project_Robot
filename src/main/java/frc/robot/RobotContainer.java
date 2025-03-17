@@ -26,6 +26,14 @@ import frc.robot.commands.Intake.negativeClawSpeed;
 import frc.robot.commands.Intake.positiveClawSpeed;
 import frc.robot.commands.resetPigeon;
 import frc.robot.commands.Intake.stopClawSpeed;
+import frc.robot.commands.ScoringCMDs.AlgaeLevel2CMD;
+import frc.robot.commands.ScoringCMDs.AlgaeLevel3CMD;
+import frc.robot.commands.ScoringCMDs.HomeLevelCMD;
+import frc.robot.commands.ScoringCMDs.Level1CMD;
+import frc.robot.commands.ScoringCMDs.Level2CMD;
+import frc.robot.commands.ScoringCMDs.Level3CMD;
+import frc.robot.commands.ScoringCMDs.Level4CMD;
+import frc.robot.commands.ScoringCMDs.NetLevelCMD;
 import frc.robot.constants.OperatorConstants;
 import frc.robot.subsystem.Elevator;
 import frc.robot.subsystem.SwerveSubsystem;
@@ -53,7 +61,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("example", Commands.print("Hello World"));
     NamedCommands.registerCommand("ZeroGyro", zeroGyro);
 
-    //Create Intake Level, Level 1, 2, 3, 4
+    /*//Create Intake Level, Level 1, 2, 3, 4
     NamedCommands.registerCommand("Elevator Up", new elevatorUp(elevator, 30)); //encoder ticks currently dont matter. stay below 135
     NamedCommands.registerCommand("Elevator Intake Up", new elevatorUp(elevator, 35));
     NamedCommands.registerCommand("Elevator L1 up,", new elevatorUp(elevator,30));
@@ -66,7 +74,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("Elevator L1 Down",new elevatorDown(elevator,30));
     NamedCommands.registerCommand("Elevator L2 Down",new elevatorDown(elevator,37));
     NamedCommands.registerCommand("Elevator L3 Down", new elevatorDown(elevator,38));
-    NamedCommands.registerCommand("Elevator L4 Down",new elevatorDown(elevator, 39));
+    NamedCommands.registerCommand("Elevator L4 Down",new elevatorDown(elevator, 39));*/
 
     //to add auto, create auto in pathplanner
     autoChooser = AutoBuilder.buildAutoChooser();
@@ -119,20 +127,30 @@ public class RobotContainer {
     driverController.a().onTrue(new climberUp(Climber));
     driverController.b().onTrue(new climberDown(Climber));
 
-    operaterController.leftBumper().whileTrue(new elevatorDown(elevator, 25));
-    operaterController.rightBumper().whileTrue(new elevatorUp(elevator, 95));
+    //operaterController.leftBumper().whileTrue(new elevatorDown(elevator, 25));
+    operaterController.rightBumper().whileTrue(new elevatorUp(elevator));
     operaterController.rightTrigger(0.5).whileTrue(new positiveClawSpeed(intakeClaw));
     operaterController.leftTrigger(0.5).whileTrue(new negativeClawSpeed(intakeClaw));
-    operaterController.y().onTrue(new intakesolenoidOut(intakeClaw));
-    operaterController.x().onTrue(new intakesolenoidIN(intakeClaw));
+    operaterController.a().onTrue(new Level1CMD(elevator, intakeClaw));
+    operaterController.b().onTrue(new Level2CMD(elevator, intakeClaw));
+    operaterController.x().onTrue(new Level3CMD(elevator, intakeClaw));
+    operaterController.y().onTrue(new Level4CMD(elevator, intakeClaw));
+    operaterController.povDown().onTrue(new HomeLevelCMD(elevator, intakeClaw));
+    operaterController.povRight().onTrue(new AlgaeLevel2CMD(elevator, intakeClaw));
+    operaterController.povRight().onTrue(new AlgaeLevel3CMD(elevator, intakeClaw));
+    operaterController.povUp().onTrue(new NetLevelCMD(elevator, intakeClaw));
+    
+    
+    //operaterController.y().onTrue(new intakesolenoidOut(intakeClaw));
+    //operaterController.x().onTrue(new intakesolenoidIN(intakeClaw));
 
-    operaterController.leftBumper().whileFalse(new elevatorStop(elevator));
+    //operaterController.leftBumper().whileFalse(new elevatorStop(elevator));
     operaterController.rightBumper().whileFalse(new elevatorStop(elevator));
     operaterController.leftTrigger(0.49).whileFalse(new stopClawSpeed(intakeClaw));
     operaterController.rightTrigger(0.49
     ).whileFalse(new stopClawSpeed(intakeClaw));
-    operaterController.a().onTrue(new elevatorControl(elevator, 90));
-    operaterController.b().onTrue(new elevatorControl(elevator, 45));
+
+    //new branch test
   }
 
   public Command getAutonomousCommand() {

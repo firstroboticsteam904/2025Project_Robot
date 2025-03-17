@@ -13,9 +13,9 @@ public class elevatorUp extends Command {
   Elevator elevator;
   double desiredElevatorTicks;
   double emergencyTicks = 130;
-  public elevatorUp(Elevator elevator, double elevatorTicks) {
+  public elevatorUp(Elevator elevator/*, double elevatorTicks*/) {
     this.elevator = elevator;
-    desiredElevatorTicks = elevatorTicks;
+    //desiredElevatorTicks = elevatorTicks;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(elevator);
   }
@@ -29,15 +29,15 @@ public class elevatorUp extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      double elevatorGo = elevator.ElevatorTravel();
+      /*double elevatorGo = elevator.ElevatorTravel();
       if(elevatorGo <= desiredElevatorTicks){
         elevator.elevatorSpeed(-0.5);
       } else if(elevatorGo >= emergencyTicks){
         elevator.elevatorSpeed(0);
       } else{
         elevator.elevatorSpeed(0);
-      }
-
+      }*/
+    elevator.elevatorSpeed(-0.5);
   }
 
   // Called once the command ends or is interrupted.
@@ -49,12 +49,13 @@ public class elevatorUp extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (elevator.ElevatorTravel() >= desiredElevatorTicks || elevator.ElevatorTravel() >= emergencyTicks) {
+    /*if (elevator.ElevatorTravel() >= desiredElevatorTicks || elevator.ElevatorTravel() >= emergencyTicks) {
       elevator.elevatorSpeed(0);
       return true;
     }
     else{
       return false;
-    }
+    }*/
+    return false;
   }
 }
