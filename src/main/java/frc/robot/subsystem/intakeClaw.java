@@ -18,7 +18,7 @@ import frc.robot.Robot;
 public class intakeClaw extends SubsystemBase {
   /** Creates a new intakeClaw. */
   private final SparkMax brushMax = new SparkMax(15, MotorType.kBrushed);
-  public static DoubleSolenoid intakeSolenoid = Robot.bingoPneumaticHub.makeDoubleSolenoid(2, 4);
+  public static DoubleSolenoid intakeSolenoid = Robot.bingoPneumaticHub.makeDoubleSolenoid(7, 9);
 
 
   //TO-DOelea
