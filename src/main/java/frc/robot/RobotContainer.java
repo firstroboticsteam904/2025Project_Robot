@@ -48,7 +48,7 @@ public class RobotContainer {
   private final Elevator elevator = new Elevator();
   private final intakeClaw intakeClaw= new intakeClaw();
   private final CommandXboxController driverController = new CommandXboxController(0);
-  private final CommandXboxController operaterController = new CommandXboxController(1);
+  public static final CommandXboxController operaterController = new CommandXboxController(1);
   private final Command zeroGyro = new resetPigeon(driveBase);
 
   private final SendableChooser<Command> autoChooser;
@@ -76,6 +76,19 @@ public class RobotContainer {
     NamedCommands.registerCommand("Elevator L3 Down", new elevatorDown(elevator,38));
     NamedCommands.registerCommand("Elevator L4 Down",new elevatorDown(elevator, 39));*/
 
+    NamedCommands.registerCommand("Coral Level 1", new Level1CMD(elevator, intakeClaw));
+    NamedCommands.registerCommand("Coral Level 2", new Level2CMD(elevator, intakeClaw));
+    NamedCommands.registerCommand("Coral Level 3", new Level3CMD(elevator, intakeClaw));
+    NamedCommands.registerCommand("Coral Level 4", new Level4CMD(elevator, intakeClaw));
+    NamedCommands.registerCommand("Algae Level 2", new AlgaeLevel2CMD(elevator, intakeClaw));
+    NamedCommands.registerCommand("Algae Level 3", new AlgaeLevel3CMD(elevator, intakeClaw));
+    NamedCommands.registerCommand("Algae Processor", new HomeLevelCMD(elevator, intakeClaw));
+    NamedCommands.registerCommand("Algae Net", new NetLevelCMD(elevator, intakeClaw));
+    NamedCommands.registerCommand("intakeClaw Positive", new positiveClawSpeed(intakeClaw));
+    NamedCommands.registerCommand("intakeClaw Negative", new negativeClawSpeed(intakeClaw));
+    
+
+
     //to add auto, create auto in pathplanner
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
@@ -85,7 +98,7 @@ public class RobotContainer {
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(driveBase.getSwerveDrive(), 
                                             () -> driverController.getLeftY() * -1,
                                             () -> driverController.getLeftX() * -1)
-                                            .withControllerRotationAxis(driverController::getRightX)
+                                            .withControllerRotationAxis(() -> driverController.getRightX() * -1)
                                             .deadband(OperatorConstants.Deadzone)
                                             .scaleTranslation(1)
                                             .allianceRelativeControl(true);
@@ -137,8 +150,10 @@ public class RobotContainer {
     operaterController.y().onTrue(new Level4CMD(elevator, intakeClaw));
     operaterController.povDown().onTrue(new HomeLevelCMD(elevator, intakeClaw));
     operaterController.povRight().onTrue(new AlgaeLevel2CMD(elevator, intakeClaw));
-    operaterController.povRight().onTrue(new AlgaeLevel3CMD(elevator, intakeClaw));
+    operaterController.povLeft().onTrue(new AlgaeLevel3CMD(elevator, intakeClaw));
     operaterController.povUp().onTrue(new NetLevelCMD(elevator, intakeClaw));
+    operaterController.start().onTrue(new intakesolenoidOut(intakeClaw));
+    operaterController.back().onTrue(new intakesolenoidIN(intakeClaw));
     
     
     //operaterController.y().onTrue(new intakesolenoidOut(intakeClaw));
