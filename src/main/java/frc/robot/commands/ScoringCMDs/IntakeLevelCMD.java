@@ -23,8 +23,9 @@ public class IntakeLevelCMD extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new elevatorControl(kElevator, 30),
-      new  intakesolenoidOut(kIntakeClaw)
+      new elevatorNonPID(kElevator, 32, 29),
+      new intakesolenoidIN(kIntakeClaw),
+      new positiveClawSpeed(kIntakeClaw)
     );
   }
 }

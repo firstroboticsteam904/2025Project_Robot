@@ -3,38 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.5402663934494685,
-        "y": 4.007018442615698
+        "x": 7.600393700787402,
+        "y": 6.208385826771653
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.569262295088812,
-        "y": 4.030993852451764
+        "x": 6.012967628434273,
+        "y": 5.645991257614069
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Alli. Side Start"
     },
     {
       "anchor": {
-        "x": 5.933913934433074,
-        "y": 4.007018442615698
+        "x": 5.347913385826771,
+        "y": 5.241062992125984
       },
       "prevControl": {
-        "x": 7.5522540983675,
-        "y": 3.9710553278616
+        "x": 6.433995565597843,
+        "y": 5.704993549773249
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "CENTERPOINT"
+      "linkedName": "Alli. Side Left Coral"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Coral Level 4",
+      "waypointRelativePos": 0.66,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
   "globalConstraints": {
-    "maxVelocity": 3.912,
-    "maxAcceleration": 3.912,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -42,13 +49,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -119.99999999999999
   },
   "reversed": false,
-  "folder": "testPaths",
+  "folder": "Starting Position",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

@@ -95,11 +95,20 @@ public class SwerveSubsystem extends SubsystemBase {
     System.out.println("Pigeon is reset");
   }
 
-    public DoubleSupplier PIDlimelightRotation(){
+    public DoubleSupplier PIDlimelightLeftRotation(){
     PIDController limelightRotationPID = new PIDController(0.025, 0.00009, 0.00007);
     return () -> {
       double txDouble = tx.getDouble(0);
-      double rotationPower = limelightRotationPID.calculate(txDouble, 0);
+      double rotationPower = limelightRotationPID.calculate(txDouble, -10);
+      return rotationPower * -1;
+    };
+  }
+
+  public DoubleSupplier PIDlimelightRightRotation(){
+    PIDController limelightRotationPID = new PIDController(0.025, 0.00009, 0.00007);
+    return () -> {
+      double txDouble = tx.getDouble(0);
+      double rotationPower = limelightRotationPID.calculate(txDouble, 10);
       return rotationPower * -1;
     };
   }

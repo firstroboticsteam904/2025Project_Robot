@@ -10,32 +10,33 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystem.Elevator;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class elevatorUp extends Command {
-  /** Creates a new elevatorMove. */
+public class elevatorNonPID extends Command {
+  /** Creates a new elevatorNonPID. */
   Elevator elevator;
-  double desiredElevatorTicks;
-  double emergencyTicks = 127;
+  double MAXRangeElevatorTicks;
+  double MINRangeElevatorTicks;
+  double emergencyUpTicks = 127;
   double approachingEmergencyTicks = 120;
-  public elevatorUp(Elevator elevator, double elevatorTicks) {
-    this.elevator = elevator;
-    desiredElevatorTicks = elevatorTicks;
+  public elevatorNonPID(Elevator elevator, double MAXelevatorTicks, double MINelevatorTicks) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(elevator);
+    this.elevator = elevator;
+    MAXRangeElevatorTicks = MAXelevatorTicks;
+    MINRangeElevatorTicks = MINelevatorTicks;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     double deathtrapTravel = elevator.ElevatorTravel();
-    if(deathtrapTravel < desiredElevatorTicks){
+    if(deathtrapTravel < MAXRangeElevatorTicks){
       elevator.elevatorSpeed(-0.4);
-    } else if(deathtrapTravel >= emergencyTicks){
+    } else if(deathtrapTravel > MINRangeElevatorTicks){
+      elevator.elevatorSpeed(0.3);
+    } else if(deathtrapTravel >= emergencyUpTicks){
       RobotContainer.operaterController.setRumble(RumbleType.kBothRumble, 1);
       elevator.elevatorSpeed(0);
     } else if(deathtrapTravel >= approachingEmergencyTicks){
@@ -45,24 +46,23 @@ public class elevatorUp extends Command {
       RobotContainer.operaterController.setRumble(RumbleType.kBothRumble, 0);
       elevator.elevatorSpeed(0.025);
     }
-    
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (elevator.ElevatorTravel() >= desiredElevatorTicks || elevator.ElevatorTravel() >= emergencyTicks) {
+    if(elevator.ElevatorTravel() <= MAXRangeElevatorTicks && elevator.ElevatorTravel() >= MINRangeElevatorTicks){
+      elevator.elevatorSpeed(-0.025);
+      return true;
+    } else if(elevator.ElevatorTravel() >= emergencyUpTicks){
       elevator.elevatorSpeed(0);
-      RobotContainer.operaterController.setRumble(RumbleType.kBothRumble, 0);
       return true;
     }
-    else{
+    else {
       return false;
     }
   }

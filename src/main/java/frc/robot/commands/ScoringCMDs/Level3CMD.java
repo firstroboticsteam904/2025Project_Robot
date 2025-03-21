@@ -23,8 +23,8 @@ public class Level3CMD extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new elevatorControl(kElevator, 70),
-      new  intakesolenoidOut(kIntakeClaw)
+      new elevatorNonPID(kElevator, 72, 69),
+      new  intakesolenoidIN(kIntakeClaw)
     );
   }
 }

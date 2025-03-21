@@ -6,6 +6,7 @@ package frc.robot.commands.ScoringCMDs;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.commands.Elevator.elevatorControl;
+import frc.robot.commands.Elevator.elevatorNonPID;
 import frc.robot.commands.Intake.intakesolenoidIN;
 import frc.robot.subsystem.Elevator;
 import frc.robot.subsystem.intakeClaw;
@@ -23,7 +24,7 @@ public class HomeLevelCMD extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new elevatorControl(kElevator, 15),
+      new elevatorNonPID(kElevator, 17, 14),
       new intakesolenoidIN(kIntakeClaw)
     );
   }

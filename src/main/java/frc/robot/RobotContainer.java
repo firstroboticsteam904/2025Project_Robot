@@ -29,6 +29,8 @@ import frc.robot.commands.Intake.stopClawSpeed;
 import frc.robot.commands.ScoringCMDs.AlgaeLevel2CMD;
 import frc.robot.commands.ScoringCMDs.AlgaeLevel3CMD;
 import frc.robot.commands.ScoringCMDs.HomeLevelCMD;
+import frc.robot.commands.ScoringCMDs.Intake2LevelCMD;
+import frc.robot.commands.ScoringCMDs.IntakeLevelCMD;
 import frc.robot.commands.ScoringCMDs.Level1CMD;
 import frc.robot.commands.ScoringCMDs.Level2CMD;
 import frc.robot.commands.ScoringCMDs.Level3CMD;
@@ -86,6 +88,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("Algae Net", new NetLevelCMD(elevator, intakeClaw));
     NamedCommands.registerCommand("intakeClaw Positive", new positiveClawSpeed(intakeClaw));
     NamedCommands.registerCommand("intakeClaw Negative", new negativeClawSpeed(intakeClaw));
+    NamedCommands.registerCommand("Coral Intake 1", new IntakeLevelCMD(elevator, intakeClaw));
+    NamedCommands.registerCommand("Coral Intake 2", new Intake2LevelCMD(elevator, intakeClaw));
     
 
 
@@ -103,10 +107,19 @@ public class RobotContainer {
                                             .scaleTranslation(1)
                                             .allianceRelativeControl(true);
 
-  SwerveInputStream limelightDrive = SwerveInputStream.of(driveBase.getSwerveDrive(),
+  SwerveInputStream limelightLeftDrive = SwerveInputStream.of(driveBase.getSwerveDrive(),
                                             driveBase.PIDlimslightdrive(),
                                             () -> driverController.getLeftX() * -1)
-                                            .withControllerRotationAxis(driveBase.PIDlimelightRotation())
+                                            .withControllerRotationAxis(driveBase.PIDlimelightLeftRotation())
+                                            .deadband(OperatorConstants.limelightDeadzone)
+                                            .scaleTranslation(0.85)
+                                            .allianceRelativeControl(false)
+                                            .robotRelative(true);
+
+  SwerveInputStream limelightRightDrive = SwerveInputStream.of(driveBase.getSwerveDrive(),
+                                            driveBase.PIDlimslightdrive(),
+                                            () -> driverController.getLeftX() * -1)
+                                            .withControllerRotationAxis(driveBase.PIDlimelightLeftRotation())
                                             .deadband(OperatorConstants.limelightDeadzone)
                                             .scaleTranslation(0.85)
                                             .allianceRelativeControl(false)
@@ -125,7 +138,8 @@ public class RobotContainer {
     //Command driveFieldOrientatedDirectAngle = driveBase.driveFieldOriented(driveDirectAngle);
     Command driveFieldOrientatedAngularVelocity = driveBase.driveFieldOriented(driveAngularVelocity);
     Command driverobotOrientedCmd = driveBase.driveFieldOriented(driveRobotOriented);
-    Command limelightDriveCmd = driveBase.driveFieldOriented(limelightDrive);
+    Command limelightLeftDriveCmd = driveBase.driveFieldOriented(limelightLeftDrive);
+    Command limelightRightDriveCmd = driveBase.driveFieldOriented(limelightRightDrive);
 
   private void configureBindings() {
     driverController.y().onTrue(new resetPigeon(driveBase));
@@ -133,15 +147,18 @@ public class RobotContainer {
     .onTrue(Commands.runOnce(() -> {driveAngularVelocity.scaleTranslation(MathUtil.interpolate(1.0, 0.1, 1));
     }))
     .onFalse(Commands.runOnce(() -> {
-      driveAngularVelocity.scaleTranslation(1);
+      driveAngularVelocity.scaleTranslation(MathUtil.interpolate(0.1, 1.0, 1));
     }));
 
-    driverController.rightBumper().whileTrue(limelightDriveCmd);
+    driverController.leftBumper().whileTrue(limelightLeftDriveCmd);
+    driverController.rightBumper().whileTrue(limelightRightDriveCmd);
     driverController.a().onTrue(new climberUp(Climber));
     driverController.b().onTrue(new climberDown(Climber));
 
-    //operaterController.leftBumper().whileTrue(new elevatorDown(elevator, 25));
-    operaterController.rightBumper().whileTrue(new elevatorUp(elevator));
+    operaterController.axisLessThan(1, -0.5).whileTrue(new elevatorUp(elevator, 127));
+    operaterController.axisGreaterThan(1, 0.5).whileFalse(new elevatorDown(elevator, 15));
+    //operaterController.leftBumper().whileTrue(new elevatorDown(elevator, 15));
+    //operaterController.rightBumper().whileTrue(new elevatorUp(elevator, 127));
     operaterController.rightTrigger(0.5).whileTrue(new positiveClawSpeed(intakeClaw));
     operaterController.leftTrigger(0.5).whileTrue(new negativeClawSpeed(intakeClaw));
     operaterController.a().onTrue(new Level1CMD(elevator, intakeClaw));
@@ -154,13 +171,9 @@ public class RobotContainer {
     operaterController.povUp().onTrue(new NetLevelCMD(elevator, intakeClaw));
     operaterController.start().onTrue(new intakesolenoidOut(intakeClaw));
     operaterController.back().onTrue(new intakesolenoidIN(intakeClaw));
-    
-    
-    //operaterController.y().onTrue(new intakesolenoidOut(intakeClaw));
-    //operaterController.x().onTrue(new intakesolenoidIN(intakeClaw));
 
     //operaterController.leftBumper().whileFalse(new elevatorStop(elevator));
-    operaterController.rightBumper().whileFalse(new elevatorStop(elevator));
+    //operaterController.rightBumper().whileFalse(new elevatorStop(elevator));
     operaterController.leftTrigger(0.49).whileFalse(new stopClawSpeed(intakeClaw));
     operaterController.rightTrigger(0.49
     ).whileFalse(new stopClawSpeed(intakeClaw));

@@ -49,7 +49,7 @@ public class elevatorControl extends Command {
   @Override
   public boolean isFinished() {
     if(elevatorController.atSetpoint()){
-      kElevator.elevatorSpeed(-0.1);
+      kElevator.elevatorSpeed(-0.025);
       return true;
     } else {
       return false;

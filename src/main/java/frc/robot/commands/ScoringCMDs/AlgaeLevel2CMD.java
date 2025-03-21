@@ -23,7 +23,7 @@ public class AlgaeLevel2CMD extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new elevatorControl(kElevator, 60),
+      new elevatorNonPID(kElevator, 62, 59),
       new  intakesolenoidOut(kIntakeClaw)
     );
   }

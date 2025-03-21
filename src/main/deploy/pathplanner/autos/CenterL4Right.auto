@@ -5,21 +5,27 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "ZeroGyro"
+            "pathName": "Center Start - Right"
           }
         },
         {
-          "type": "path",
+          "type": "wait",
           "data": {
-            "pathName": "Gym Path Test"
+            "waitTime": 2.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeClaw Positive"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "testAutos",
+  "folder": null,
   "choreoAuto": false
 }
