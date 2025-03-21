@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 5.085354330708661,
+        "y": 2.6292913385826773
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.373337987556495,
+        "y": 2.841459335299177
+      },
+      "isLocked": false,
+      "linkedName": "Opp Side Left"
+    },
+    {
+      "anchor": {
+        "x": 5.209724409448819,
+        "y": 2.7398425196850393
+      },
+      "prevControl": {
+        "x": 4.750378276605921,
+        "y": 2.443583921965564
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Opp Algae Center"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.912,
+    "maxAcceleration": 3.912,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 119.99999999999999
+  },
+  "reversed": false,
+  "folder": "Algae Shift",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 119.99999999999999
+  },
+  "useDefaultConstraints": true
+}

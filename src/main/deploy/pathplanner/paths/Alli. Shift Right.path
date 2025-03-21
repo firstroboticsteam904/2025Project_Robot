@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 5.347913385826771,
+        "y": 5.241062992125984
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.5960569261972575,
+        "y": 5.271473243233142
+      },
+      "isLocked": false,
+      "linkedName": "Alli. Side Left Coral"
+    },
+    {
+      "anchor": {
+        "x": 5.209724409448819,
+        "y": 5.268700787401574
+      },
+      "prevControl": {
+        "x": 4.936218637306798,
+        "y": 5.243695829148223
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Alli. Algae Center"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.912,
+    "maxAcceleration": 3.912,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -119.99999999999999
+  },
+  "reversed": false,
+  "folder": "Algae Shift",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -119.99999999999999
+  },
+  "useDefaultConstraints": true
+}

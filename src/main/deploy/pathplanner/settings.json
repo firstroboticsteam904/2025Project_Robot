@@ -3,9 +3,13 @@
   "robotLength": 0.8509,
   "holonomicMode": true,
   "pathFolders": [
+    "Algae Shift",
     "Starting Position"
   ],
-  "autoFolders": [],
+  "autoFolders": [
+    "Algae Scoring",
+    "Simple Autos"
+  ],
   "defaultMaxVel": 3.912,
   "defaultMaxAccel": 3.912,
   "defaultMaxAngVel": 540.0,
